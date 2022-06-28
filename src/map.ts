@@ -1,3 +1,4 @@
+//  TODO: Improve DocStrings
 export class AwesomeMap<K, V> extends Map<K, V> {
 
     constructor() {
@@ -16,6 +17,20 @@ export class AwesomeMap<K, V> extends Map<K, V> {
             }
         }
         return filtered
+    }
+
+    /**
+     * Reduce for maps
+     * @param callback Callback function to reduce the map
+     * @param initializer Initial value
+     * @returns Reduced value
+     */
+    reduce<T>(callback: (accumulator: T, current: V, key: K, map: this) => T, initializer: T) {
+        let result = initializer
+        for (const [k, v] of this.entries()) {
+            result = callback(result, v, k, this)
+        }
+        return result
     }
 
 }

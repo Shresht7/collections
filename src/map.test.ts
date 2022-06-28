@@ -2,6 +2,7 @@
 import { AwesomeMap } from './map'
 import { describe, expect, test } from 'vitest'
 
+//  TODO: Add more tests
 
 describe('AwesomeMap', () => {
 
@@ -19,6 +20,11 @@ describe('AwesomeMap', () => {
         expect(filteredMap.get('one')).toBe(1)
         expect(filteredMap.get('three')).toBe(3)
         expect(filteredMap.get('five')).toBe(5)
+    })
+
+    test('reduce', () => {
+        const sum = map.reduce((accumulator, current) => accumulator + current, 0)
+        expect(sum).toBe(15)
     })
 
 })
