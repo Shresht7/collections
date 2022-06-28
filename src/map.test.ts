@@ -1,15 +1,24 @@
 //  Library
 import { AwesomeMap } from './map'
+import { describe, expect, test } from 'vitest'
 
-const map = new AwesomeMap<string, number>()
 
-map.set('one', 1)
-map.set('two', 2)
-map.set('three', 3)
-map.set('four', 4)
-map.set('five', 5)
+describe('AwesomeMap', () => {
 
-const filteredMap = map.filter((v) => v % 2 !== 0)
+    const map = new AwesomeMap<string, number>()
 
-console.log(filteredMap.size)
-console.log(filteredMap)
+    map.set('one', 1)
+        .set('two', 2)
+        .set('three', 3)
+        .set('four', 4)
+        .set('five', 5)
+
+    test('filter', () => {
+        const filteredMap = map.filter((v) => v % 2 !== 0)
+        expect(filteredMap.size).toBe(3)
+        expect(filteredMap.get('one')).toBe(1)
+        expect(filteredMap.get('three')).toBe(3)
+        expect(filteredMap.get('five')).toBe(5)
+    })
+
+})

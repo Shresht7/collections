@@ -5,11 +5,13 @@
   "main": "lib/main.js",
   "scripts": {
     "build": "tsc",
-    "dev": "tsc -w"
+    "dev": "tsc -w",
+    "test": "vitest"
   },
   "author": "Shresht7",
   "license": "MIT",
   "devDependencies": {
-    "typescript": "^4.7.4"
+    "typescript": "^4.7.4",
+    "vitest": "^0.16.0"
   }
 }
