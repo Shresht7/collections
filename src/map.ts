@@ -33,4 +33,26 @@ export class AwesomeMap<K, V> extends Map<K, V> {
         return result
     }
 
+    get entriesArray(): [K, V][] {
+        return collect(this.entries())
+    }
+
+    get keysArray(): K[] {
+        return collect(this.keys())
+    }
+
+    get valuesArray(): V[] {
+        return collect(this.values())
+    }
+
+}
+
+//  TODO: Add docs and tests
+//  ? Move to a separate file (helpers?)
+function collect<T>(iterable: IterableIterator<T>): T[] {
+    const arr: T[] = []
+    for (const element of iterable) {
+        arr.push(element)
+    }
+    return arr
 }
