@@ -1,1 +1,1 @@
-console.log('Hello Collections!')
+export * from './map'
