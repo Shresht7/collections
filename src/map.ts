@@ -138,4 +138,11 @@ export class AwesomeMap<K, V> extends Map<K, V> {
         return false
     }
 
+    /** Converts the AwesomeMap into a regular JavaScript Object */
+    toObject(): Record<string, V> {
+        return Object.fromEntries(this.entries())
+    }
+
 }
+
+//  ? Consider Static Methods - fromEntries, toJSON, fromJSON etc.

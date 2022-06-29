@@ -7,15 +7,16 @@ import { describe, expect, test } from 'vitest'
 describe('AwesomeMap', () => {
 
     const map = new AwesomeMap<string, number>()
+    const obj = {
+        one: 1,
+        two: 2,
+        three: 3,
+        four: 4,
+        five: 5
+    }
 
     test('fromEntries', () => {
-        map.fromEntries(Object.entries({
-            one: 1,
-            two: 2,
-            three: 3,
-            four: 4,
-            five: 5
-        }))
+        map.fromEntries(Object.entries(obj))
         expect(map.get('one')).toBe(1)
         expect(map.get('two')).toBe(2)
         expect(map.get('three')).toBe(3)
@@ -81,6 +82,10 @@ describe('AwesomeMap', () => {
 
     test('some', () => {
         expect(map.some(v => v % 2 === 0 && v % 3 === 0)).toBeFalsy()
+    })
+
+    test('toObject', () => {
+        expect(map.toObject()).toStrictEqual(obj)
     })
 
 })
