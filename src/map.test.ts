@@ -44,6 +44,14 @@ describe('AwesomeMap', () => {
         expect(filteredMap.get('five')).toBe(5)
     })
 
+    test('map', () => {
+        const starMap = map.map(v => '*'.repeat(v * 2))
+        expect(starMap.get('one')).toBe('**')
+        expect(starMap.get('two')).toBe('****')
+        expect(starMap.get('three')).toBe('******')
+        expect(starMap.get('six')).toBe(undefined)
+    })
+
     test('reduce', () => {
         const sum = map.reduce((accumulator, current) => accumulator + current, 0)
         expect(sum).toBe(15)

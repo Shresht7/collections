@@ -43,6 +43,18 @@ export class AwesomeMap<K, V> extends Map<K, V> {
     }
 
     /**
+     * Map for AwesomeMaps
+     * @param callback Callback function to map values
+     * @returns A new AwesomeMap with the mapped values
+     */
+    map<T>(callback: (value: V, key: K, map: this) => T): AwesomeMap<K, T> {
+        const newMap = new AwesomeMap<K, T>()
+        for (const [key, value] of this.entries()) {
+            newMap.set(key, callback(value, key, this))
+        }
+        return newMap
+    }
+    /**
      * Reduce for maps
      * @param callback Callback function to reduce the map
      * @param initializer Initial value
