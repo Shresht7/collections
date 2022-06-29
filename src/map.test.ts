@@ -24,6 +24,18 @@ describe('AwesomeMap', () => {
         expect(map.get('six')).toBe(undefined)
     })
 
+    test('constructor', () => {
+        const squareMap = new AwesomeMap(Object.entries({
+            one: 1,
+            two: 4,
+            three: 9
+        }))
+        expect(squareMap.get('one')).toBe(1)
+        expect(squareMap.get('two')).toBe(4)
+        expect(squareMap.get('three')).toBe(9)
+        expect(squareMap.get('four')).toBe(undefined)
+    })
+
     test('filter', () => {
         const filteredMap = map.filter((v) => v % 2 !== 0)
         expect(filteredMap.size).toBe(3)

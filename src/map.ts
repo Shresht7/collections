@@ -4,8 +4,16 @@ import { collect } from './helpers'
 //  TODO: Improve DocStrings
 export class AwesomeMap<K, V> extends Map<K, V> {
 
-    constructor() {
+    /**
+     * Constructs a new AwesomeMap. Can optionally be instantiated using
+     * an entries array. (like from Object.entries(someObject))
+     * @param entries (Optional) Entries to instantiate the map from
+     */
+    constructor(entries?: [K, V][]) {
         super()
+        if (entries && entries.length > 0) {
+            this.fromEntries(entries, true)
+        }
     }
 
     /**
