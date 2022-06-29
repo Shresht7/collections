@@ -6,7 +6,6 @@ import { describe, expect, test } from 'vitest'
 
 describe('AwesomeMap', () => {
 
-    const map = new AwesomeMap<string, number>()
     const obj = {
         one: 1,
         two: 2,
@@ -14,6 +13,8 @@ describe('AwesomeMap', () => {
         four: 4,
         five: 5
     }
+    const map = new AwesomeMap<string, number>(Object.entries(obj))
+
 
     test('fromEntries', () => {
         map.fromEntries(Object.entries(obj))
@@ -35,6 +36,13 @@ describe('AwesomeMap', () => {
         expect(squareMap.get('two')).toBe(4)
         expect(squareMap.get('three')).toBe(9)
         expect(squareMap.get('four')).toBe(undefined)
+    })
+
+    test('at', () => {
+        expect(map.at(0)).toStrictEqual(['one', 1])
+        expect(map.at(1)).toStrictEqual(['two', 2])
+        expect(map.at(-1)).toStrictEqual(['five', 5])
+        expect(map.at(6)).toStrictEqual(['one', 1])
     })
 
     test('filter', () => {
