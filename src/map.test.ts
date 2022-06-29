@@ -75,4 +75,12 @@ describe('AwesomeMap', () => {
         expect(product).toBe(120)
     })
 
+    test('every', () => {
+        expect(map.every(v => v > 0)).toBeTruthy()
+    })
+
+    test('some', () => {
+        expect(map.some(v => v % 2 === 0 && v % 3 === 0)).toBeFalsy()
+    })
+
 })

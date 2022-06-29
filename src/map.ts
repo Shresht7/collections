@@ -112,4 +112,30 @@ export class AwesomeMap<K, V> extends Map<K, V> {
         return result
     }
 
+    /**
+     * Returns true if the callback is valid for every entry in the map
+     * @param callback Callback function to check condition
+     * @returns Boolean indicating that the callback returned true for every entry
+     */
+    every(callback: (value: V, key: K, map: this) => boolean): boolean {
+        let result = true
+        for (const [key, value] of this.entries()) {
+            if (!callback(value, key, this)) { return false }
+        }
+        return result
+    }
+
+    /**
+     * Returns true if the callback is valid for at least some entry in the map
+     * @param callback Callback function to check condition
+     * @returns Boolean indicating that the callback returned true for at least one entry
+     */
+    some(callback: (value: V, key: K, map: this) => boolean): boolean {
+        let result = false
+        for (const [key, value] of this.entries()) {
+            if (callback(value, key, this)) { return true }
+        }
+        return false
+    }
+
 }
