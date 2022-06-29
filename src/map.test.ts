@@ -52,6 +52,14 @@ describe('AwesomeMap', () => {
         expect(starMap.get('six')).toBe(undefined)
     })
 
+    test('transform', () => {
+        const newMap = map.transform((key, value) => [key.toUpperCase(), value ** 2])
+        expect(newMap.get('ONE')).toBe(1)
+        expect(newMap.get('TWO')).toBe(4)
+        expect(newMap.get('THREE')).toBe(9)
+        expect(newMap.get('SIX')).toBe(undefined)
+    })
+
     test('reduce', () => {
         const sum = map.reduce((accumulator, current) => accumulator + current, 0)
         expect(sum).toBe(15)
