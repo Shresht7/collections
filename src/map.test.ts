@@ -47,6 +47,8 @@ describe('AwesomeMap', () => {
     test('reduce', () => {
         const sum = map.reduce((accumulator, current) => accumulator + current, 0)
         expect(sum).toBe(15)
+        const product = map.reduce((accumulator, current) => accumulator * current)
+        expect(product).toBe(120)
     })
 
 })

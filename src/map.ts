@@ -48,10 +48,12 @@ export class AwesomeMap<K, V> extends Map<K, V> {
      * @param initializer Initial value
      * @returns Reduced value
      */
-    reduce<T>(callback: (accumulator: T, current: V, key: K, map: this) => T, initializer: T) {
-        let result = initializer
-        for (const [k, v] of this.entries()) {
-            result = callback(result, v, k, this)
+    reduce<T = V>(callback: (accumulator: T, current: V, key: K, map: this) => T, initializer?: T) {
+        const iterator = this.entries()     //  Entries: [key, value] --- values are at index 1
+        let result = initializer ?? iterator.next().value[1]    //  Use initializer if available, otherwise extract the value from the first entry
+        //  Iterate over the rest of the entries executing the callback and accumulating the result
+        for (const [key, value] of iterator) {
+            result = callback(result, value, key, this)
         }
         return result
     }
