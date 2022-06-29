@@ -58,6 +58,16 @@ describe('AwesomeMap', () => {
 
     })
 
+    describe('array getters', () => {
+
+        test('should return arrays from the given map iterables', () => {
+            expect(map.entriesArray).toStrictEqual([['one', 1], ['two', 2], ['three', 3]])
+            expect(map.keysArray).toStrictEqual(['one', 'two', 'three'])
+            expect(map.valuesArray).toStrictEqual([1, 2, 3])
+        })
+
+    })
+
     describe('at', () => {
 
         test('should return the entry at the given position', () => {
