@@ -1,5 +1,6 @@
-//  Library
-import { collect } from './helpers'
+// ===========
+// AWESOME MAP
+// ===========
 
 /** Extends the Map class with useful functions */
 export class AwesomeMap<K, V> extends Map<K, V> {
@@ -18,17 +19,17 @@ export class AwesomeMap<K, V> extends Map<K, V> {
 
     /** Get map entries as an array */
     get entriesArray(): [K, V][] {
-        return collect(this.entries())
+        return Array.from(this.entries())
     }
 
     /** Get map keys as an array */
     get keysArray(): K[] {
-        return collect(this.keys())
+        return Array.from(this.keys())
     }
 
     /** Get map values as an array */
     get valuesArray(): V[] {
-        return collect(this.values())
+        return Array.from(this.values())
     }
 
     /**
