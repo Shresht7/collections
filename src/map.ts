@@ -9,6 +9,18 @@ export class AwesomeMap<K, V> extends Map<K, V> {
     }
 
     /**
+     * Instantiate the map using the given entries
+     * @param entries Entries (in [key, value] format) to initialize map from
+     * @param clearExisting Boolean flag to indicate that the map should clear any existing entries
+     */
+    fromEntries(entries: [K, V][], clearExisting: boolean = true) {
+        if (clearExisting) { this.clear() }
+        for (const [key, value] of entries) {
+            this.set(key, value)
+        }
+    }
+
+    /**
      * Filter for maps
      * @param callback Callback function to determine which entries are filtered
      */

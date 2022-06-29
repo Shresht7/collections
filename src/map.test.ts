@@ -8,11 +8,21 @@ describe('AwesomeMap', () => {
 
     const map = new AwesomeMap<string, number>()
 
-    map.set('one', 1)
-        .set('two', 2)
-        .set('three', 3)
-        .set('four', 4)
-        .set('five', 5)
+    test('fromEntries', () => {
+        map.fromEntries(Object.entries({
+            one: 1,
+            two: 2,
+            three: 3,
+            four: 4,
+            five: 5
+        }))
+        expect(map.get('one')).toBe(1)
+        expect(map.get('two')).toBe(2)
+        expect(map.get('three')).toBe(3)
+        expect(map.get('four')).toBe(4)
+        expect(map.get('five')).toBe(5)
+        expect(map.get('six')).toBe(undefined)
+    })
 
     test('filter', () => {
         const filteredMap = map.filter((v) => v % 2 !== 0)
