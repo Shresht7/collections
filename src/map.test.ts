@@ -92,6 +92,12 @@ describe('AwesomeMap', () => {
         expect(notFound).toBeFalsy()
     })
 
+    test('keyof', () => {
+        expect(map.keyOf(3)).toBe('three')
+        expect(map.keyOf(5)).toBe('five')
+        expect(map.keyOf(7)).toBe(undefined)
+    })
+
     test('every', () => {
         expect(map.every(v => v > 0)).toBeTruthy()
     })

@@ -10,11 +10,8 @@ export class AwesomeMap<K, V> extends Map<K, V> {
      * an entries array. (like from Object.entries(someObject))
      * @param entries (Optional) Entries to instantiate the map from
      */
-    constructor(entries?: [K, V][]) {
-        super()
-        if (entries && entries.length > 0) {
-            this.fromEntries(entries, true)
-        }
+    constructor(entries?: Iterable<[K, V]>) {
+        super(entries)
     }
 
     /** Get map entries as an array */
@@ -37,7 +34,7 @@ export class AwesomeMap<K, V> extends Map<K, V> {
      * @param entries Entries (in [key, value] format) to initialize map from
      * @param clearExisting Boolean flag to indicate that the map should clear any existing entries
      */
-    fromEntries(entries: [K, V][], clearExisting: boolean = true) {
+    fromEntries(entries: Iterable<[K, V]>, clearExisting: boolean = true) {
         if (clearExisting) { this.clear() }
         for (const [key, value] of entries) {
             this.set(key, value)
@@ -134,6 +131,16 @@ export class AwesomeMap<K, V> extends Map<K, V> {
         for (const [key, value] of this.entries()) {
             if (callback(value, key, this)) {
                 return [key, value]
+            }
+        }
+        return undefined
+    }
+
+    /** Returns the key of the given value; if it exists */
+    keyOf(value: V): K | undefined {
+        for (const [key, v] of this.entries()) {
+            if (v === value) {
+                return key
             }
         }
         return undefined
