@@ -1,3 +1,6 @@
+//  Library
+import { collect } from './helpers'
+
 //  TODO: Improve DocStrings
 export class AwesomeMap<K, V> extends Map<K, V> {
 
@@ -45,14 +48,4 @@ export class AwesomeMap<K, V> extends Map<K, V> {
         return collect(this.values())
     }
 
-}
-
-//  TODO: Add docs and tests
-//  ? Move to a separate file (helpers?)
-function collect<T>(iterable: IterableIterator<T>): T[] {
-    const arr: T[] = []
-    for (const element of iterable) {
-        arr.push(element)
-    }
-    return arr
 }
