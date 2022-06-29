@@ -66,8 +66,8 @@ describe('AwesomeMap', () => {
         })
 
         test('should wrap around if the position is greater than the map.size', () => {
-            expect(map.at(4)).toStrictEqual(['one', 1])
-            expect(map.at(6)).toStrictEqual(['three', 3])
+            expect(map.at(3)).toStrictEqual(['one', 1])
+            expect(map.at(5)).toStrictEqual(['three', 3])
         })
 
         test('should wrap around if the position is smaller than 0', () => {

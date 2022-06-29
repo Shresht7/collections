@@ -44,7 +44,7 @@ export class AwesomeMap<K, V> extends Map<K, V> {
     /** Get the entry at the given position */
     at(position: number): [K, V] {
         if (position < 0) { position = this.size + (position % this.size) }
-        else if (position > this.size) { position = (position % this.size) - 1 }
+        if (position >= this.size) { position = position % this.size }
         return this.entriesArray[position]
     }
 
