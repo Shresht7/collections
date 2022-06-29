@@ -60,6 +60,14 @@ describe('AwesomeMap', () => {
         expect(newMap.get('SIX')).toBe(undefined)
     })
 
+    test('mirror', () => {
+        const mirroredMap = map.mirror()
+        expect(mirroredMap.get(1)).toBe('one')
+        expect(mirroredMap.get(3)).toBe('three')
+        expect(mirroredMap.get(5)).toBe('five')
+        expect(mirroredMap.get(7)).toBe(undefined)
+    })
+
     test('reduce', () => {
         const sum = map.reduce((accumulator, current) => accumulator + current, 0)
         expect(sum).toBe(15)

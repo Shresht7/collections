@@ -85,6 +85,18 @@ export class AwesomeMap<K, V> extends Map<K, V> {
     }
 
     /**
+     * Returns a new AwesomeMap with its keys and values swapped
+     * @returns A new AwesomeMap with its keys and values swapped
+     */
+    mirror(): AwesomeMap<V, K> {
+        const mirroredMap = new AwesomeMap<V, K>()
+        for (const [key, value] of this.entries()) {
+            mirroredMap.set(value, key)
+        }
+        return mirroredMap
+    }
+
+    /**
      * Reduce for maps
      * @param callback Callback function to reduce the map
      * @param initializer Initial value
