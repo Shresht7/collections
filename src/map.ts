@@ -16,6 +16,21 @@ export class AwesomeMap<K, V> extends Map<K, V> {
         }
     }
 
+    /** Get map entries as an array */
+    get entriesArray(): [K, V][] {
+        return collect(this.entries())
+    }
+
+    /** Get map keys as an array */
+    get keysArray(): K[] {
+        return collect(this.keys())
+    }
+
+    /** Get map values as an array */
+    get valuesArray(): V[] {
+        return collect(this.values())
+    }
+
     /**
      * Instantiate the map using the given entries
      * @param entries Entries (in [key, value] format) to initialize map from
@@ -83,18 +98,6 @@ export class AwesomeMap<K, V> extends Map<K, V> {
             result = callback(result, value, key, this)
         }
         return result
-    }
-
-    get entriesArray(): [K, V][] {
-        return collect(this.entries())
-    }
-
-    get keysArray(): K[] {
-        return collect(this.keys())
-    }
-
-    get valuesArray(): V[] {
-        return collect(this.values())
     }
 
 }
