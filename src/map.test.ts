@@ -76,6 +76,14 @@ describe('AwesomeMap', () => {
         expect(product).toBe(120)
     })
 
+    test('find', () => {
+        const [key, value] = map.find((v => v !== 2 && v % 2 === 0))!
+        expect(key).toBe('four')
+        expect(value).toBe(4)
+        const notFound = map.find(v => typeof v === 'string')
+        expect(notFound).toBeFalsy()
+    })
+
     test('every', () => {
         expect(map.every(v => v > 0)).toBeTruthy()
     })

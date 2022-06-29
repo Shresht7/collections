@@ -113,6 +113,20 @@ export class AwesomeMap<K, V> extends Map<K, V> {
     }
 
     /**
+     * Find for maps
+     * @param callback Callback function to describe how to find the entry. Returns true if found
+     * @returns The found entry
+     */
+    find(callback: (value: V, key: K, map: this) => boolean): [K, V] | undefined {
+        for (const [key, value] of this.entries()) {
+            if (callback(value, key, this)) {
+                return [key, value]
+            }
+        }
+        return undefined
+    }
+
+    /**
      * Returns true if the callback is valid for every entry in the map
      * @param callback Callback function to check condition
      * @returns Boolean indicating that the callback returned true for every entry
