@@ -48,11 +48,6 @@ export class AwesomeMap<K, V> extends Map<K, V> {
         return this.entriesArray[position]
     }
 
-    /** Returns the entry at the nth position */
-    nth(position: number): [K, V] {
-        return this.at(position + 1)
-    }
-
     /**
      * Filter for maps
      * @param callback Callback function to determine which entries are filtered
