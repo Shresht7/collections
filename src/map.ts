@@ -1,11 +1,51 @@
-//  Library
-import { collect } from './helpers'
+// ===========
+// AWESOME MAP
+// ===========
 
-//  TODO: Improve DocStrings
+/** Extends the Map class with useful functions */
 export class AwesomeMap<K, V> extends Map<K, V> {
 
-    constructor() {
-        super()
+    /**
+     * Constructs a new AwesomeMap. Can optionally be instantiated using
+     * an entries array. (like from Object.entries(someObject))
+     * @param entries (Optional) Entries to instantiate the map from
+     */
+    constructor(entries?: Iterable<[K, V]>) {
+        super(entries)
+    }
+
+    /** Get map entries as an array */
+    get entriesArray(): [K, V][] {
+        return Array.from(this.entries())
+    }
+
+    /** Get map keys as an array */
+    get keysArray(): K[] {
+        return Array.from(this.keys())
+    }
+
+    /** Get map values as an array */
+    get valuesArray(): V[] {
+        return Array.from(this.values())
+    }
+
+    /**
+     * Instantiate the map using the given entries
+     * @param entries Entries (in [key, value] format) to initialize map from
+     * @param clearExisting Boolean flag to indicate that the map should clear any existing entries
+     */
+    fromEntries(entries: Iterable<[K, V]>, clearExisting: boolean = true) {
+        if (clearExisting) { this.clear() }
+        for (const [key, value] of entries) {
+            this.set(key, value)
+        }
+    }
+
+    /** Get the entry at the given position */
+    at(position: number): [K, V] {
+        if (position < 0) { position = this.size + (position % this.size) }
+        if (position >= this.size) { position = position % this.size }
+        return this.entriesArray[position]
     }
 
     /**
@@ -23,29 +63,113 @@ export class AwesomeMap<K, V> extends Map<K, V> {
     }
 
     /**
+     * Map for AwesomeMaps
+     * @param callback Callback function to map values
+     * @returns A new AwesomeMap with the mapped values
+     */
+    map<T>(callback: (value: V, key: K, map: this) => T): AwesomeMap<K, T> {
+        const newMap = new AwesomeMap<K, T>()
+        for (const [key, value] of this.entries()) {
+            newMap.set(key, callback(value, key, this))
+        }
+        return newMap
+    }
+
+    /**
+     * Transforms one AwesomeMap to another
+     * @param callback Callback function to transform keys and values. Must return entries as [key, value]
+     * @returns A new transformed AwesomeMap
+     */
+    transform<S, T>(callback: (key: K, value: V, map: this) => [S, T]): AwesomeMap<S, T> {
+        const newMap = new AwesomeMap<S, T>()
+        for (const [key, value] of this.entries()) {
+            const [newKey, newValue] = callback(key, value, this)
+            newMap.set(newKey, newValue)
+        }
+        return newMap
+    }
+
+    /**
+     * Returns a new AwesomeMap with its keys and values swapped
+     * @returns A new AwesomeMap with its keys and values swapped
+     */
+    mirror(): AwesomeMap<V, K> {
+        const mirroredMap = new AwesomeMap<V, K>()
+        for (const [key, value] of this.entries()) {
+            mirroredMap.set(value, key)
+        }
+        return mirroredMap
+    }
+
+    /**
      * Reduce for maps
      * @param callback Callback function to reduce the map
      * @param initializer Initial value
      * @returns Reduced value
      */
-    reduce<T>(callback: (accumulator: T, current: V, key: K, map: this) => T, initializer: T) {
-        let result = initializer
-        for (const [k, v] of this.entries()) {
-            result = callback(result, v, k, this)
+    reduce<T = V>(callback: (accumulator: T, current: V, key: K, map: this) => T, initializer?: T) {
+        const iterator = this.entries()     //  Entries: [key, value] --- values are at index 1
+        let result = initializer ?? iterator.next().value[1]    //  Use initializer if available, otherwise extract the value from the first entry
+        //  Iterate over the rest of the entries executing the callback and accumulating the result
+        for (const [key, value] of iterator) {
+            result = callback(result, value, key, this)
         }
         return result
     }
 
-    get entriesArray(): [K, V][] {
-        return collect(this.entries())
+    /**
+     * Find for maps
+     * @param callback Callback function to describe how to find the entry. Returns true if found
+     * @returns The found entry
+     */
+    find(callback: (value: V, key: K, map: this) => boolean): [K, V] | undefined {
+        for (const [key, value] of this.entries()) {
+            if (callback(value, key, this)) {
+                return [key, value]
+            }
+        }
+        return undefined
     }
 
-    get keysArray(): K[] {
-        return collect(this.keys())
+    /** Returns the key of the given value; if it exists */
+    keyOf(value: V): K | undefined {
+        for (const [key, v] of this.entries()) {
+            if (v === value) {
+                return key
+            }
+        }
+        return undefined
     }
 
-    get valuesArray(): V[] {
-        return collect(this.values())
+    /**
+     * Returns true if the callback is valid for every entry in the map
+     * @param callback Callback function to check condition
+     * @returns Boolean indicating that the callback returned true for every entry
+     */
+    every(callback: (value: V, key: K, map: this) => boolean): boolean {
+        let result = true
+        for (const [key, value] of this.entries()) {
+            if (!callback(value, key, this)) { return false }
+        }
+        return result
+    }
+
+    /**
+     * Returns true if the callback is valid for at least some entry in the map
+     * @param callback Callback function to check condition
+     * @returns Boolean indicating that the callback returned true for at least one entry
+     */
+    some(callback: (value: V, key: K, map: this) => boolean): boolean {
+        let result = false
+        for (const [key, value] of this.entries()) {
+            if (callback(value, key, this)) { return true }
+        }
+        return false
+    }
+
+    /** Converts the AwesomeMap into a regular JavaScript Object */
+    toObject(): Record<string, V> {
+        return Object.fromEntries(this.entries())
     }
 
 }
